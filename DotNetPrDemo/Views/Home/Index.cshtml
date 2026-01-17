@@ -1,0 +1,324 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BoulderTrack</title>
+
+    <style>
+        :root{
+          --bg: #0b1220;
+          --panel: rgba(255,255,255,0.06);
+          --panel2: rgba(255,255,255,0.10);
+          --text: #eaf0ff;
+          --muted: rgba(234,240,255,0.70);
+          --accent: #7dd3fc;
+          --accent2: #a78bfa;
+          --ring: rgba(125,211,252,0.25);
+          --border: rgba(255,255,255,0.12);
+          --shadow: 0 18px 60px rgba(0,0,0,0.45);
+          --radius: 18px;
+          --max: 1100px;
+          --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+        }
+
+        *{ box-sizing: border-box; }
+        body{
+          margin:0;
+          font-family: var(--font);
+          color: var(--text);
+          background:
+            radial-gradient(1000px 600px at 10% 10%, rgba(125,211,252,0.18), transparent 60%),
+            radial-gradient(900px 600px at 90% 20%, rgba(167,139,250,0.16), transparent 55%),
+            radial-gradient(700px 500px at 50% 95%, rgba(125,211,252,0.10), transparent 60%),
+            var(--bg);
+          min-height: 100vh;
+        }
+
+        a{ color: inherit; text-decoration: none; }
+        .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 64px; }
+
+        /* Topbar */
+        .topbar{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap: 16px;
+          padding: 14px 16px;
+          border: 1px solid var(--border);
+          background: rgba(10,16,30,0.55);
+          backdrop-filter: blur(10px);
+          border-radius: var(--radius);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        }
+        .brand{
+          display:flex;
+          align-items:center;
+          gap: 10px;
+          font-weight: 800;
+          letter-spacing: 0.3px;
+        }
+        .logo{
+          width: 34px; height: 34px;
+          border-radius: 10px;
+          background: linear-gradient(135deg, var(--accent), var(--accent2));
+          box-shadow: 0 0 0 6px rgba(125,211,252,0.10);
+          position: relative;
+          overflow: hidden;
+        }
+        .logo:before{
+          content:"";
+          position:absolute; inset:-30% -30%;
+          background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), transparent 45%);
+          transform: rotate(15deg);
+        }
+        .nav{
+          display:flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .nav a{
+          padding: 8px 10px;
+          border-radius: 12px;
+          color: var(--muted);
+          border: 1px solid transparent;
+        }
+        .nav a:hover{
+          color: var(--text);
+          border-color: var(--border);
+          background: rgba(255,255,255,0.04);
+        }
+
+        /* Hero */
+        .hero{
+          margin-top: 18px;
+          padding: 42px 22px;
+          border-radius: calc(var(--radius) + 6px);
+          border: 1px solid var(--border);
+          background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+          box-shadow: var(--shadow);
+          position: relative;
+          overflow: hidden;
+        }
+        .hero:after{
+          content:"";
+          position:absolute; inset:-2px;
+          background:
+            radial-gradient(900px 400px at 15% 25%, rgba(125,211,252,0.16), transparent 55%),
+            radial-gradient(800px 420px at 80% 15%, rgba(167,139,250,0.14), transparent 60%);
+          pointer-events:none;
+          filter: saturate(1.1);
+        }
+        .hero > *{ position: relative; z-index: 1; }
+
+        .kicker{
+          display:inline-flex;
+          align-items:center;
+          gap: 10px;
+          padding: 7px 12px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.04);
+          color: var(--muted);
+          font-size: 0.92rem;
+        }
+        .dot{
+          width: 9px; height: 9px;
+          border-radius: 50%;
+          background: var(--accent);
+          box-shadow: 0 0 0 6px rgba(125,211,252,0.12);
+        }
+
+        h1{
+          margin: 16px 0 10px;
+          font-size: clamp(2.1rem, 4vw, 3.2rem);
+          line-height: 1.08;
+          letter-spacing: -0.8px;
+        }
+        .sub{
+          margin: 0 0 18px;
+          max-width: 70ch;
+          color: var(--muted);
+          font-size: 1.06rem;
+          line-height: 1.55;
+        }
+
+        .ctaRow{
+          display:flex;
+          flex-wrap: wrap;
+          gap: 12px;
+          margin-top: 18px;
+        }
+        .btn{
+          display:inline-flex;
+          align-items:center;
+          justify-content:center;
+          gap: 10px;
+          padding: 12px 14px;
+          border-radius: 14px;
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.04);
+          color: var(--text);
+          font-weight: 700;
+          min-width: 160px;
+        }
+        .btn:hover{ background: rgba(255,255,255,0.07); }
+        .btnPrimary{
+          border-color: transparent;
+          background: linear-gradient(135deg, var(--accent), var(--accent2));
+          box-shadow: 0 14px 35px rgba(125,211,252,0.18);
+          color: #0b1220;
+        }
+        .btnPrimary:hover{
+          filter: brightness(1.02);
+          box-shadow: 0 18px 45px rgba(125,211,252,0.22);
+        }
+        .hint{
+          margin-top: 10px;
+          color: var(--muted);
+          font-size: 0.95rem;
+        }
+
+        /* Features */
+        .grid{
+          margin-top: 18px;
+          display:grid;
+          grid-template-columns: repeat(12, 1fr);
+          gap: 14px;
+        }
+        .card{
+          grid-column: span 4;
+          padding: 16px 16px 18px;
+          border-radius: var(--radius);
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.04);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+        }
+        .card h3{
+          margin: 8px 0 6px;
+          font-size: 1.05rem;
+          letter-spacing: -0.2px;
+        }
+        .card p{
+          margin: 0;
+          color: var(--muted);
+          line-height: 1.5;
+          font-size: 0.98rem;
+        }
+        .icon{
+          width: 36px; height: 36px;
+          border-radius: 12px;
+          display:grid;
+          place-items:center;
+          background: rgba(125,211,252,0.10);
+          border: 1px solid rgba(125,211,252,0.18);
+        }
+
+        /* Footer */
+        footer{
+          margin-top: 22px;
+          padding-top: 16px;
+          color: rgba(234,240,255,0.55);
+          font-size: 0.92rem;
+          display:flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: space-between;
+          align-items:center;
+        }
+        .pill{
+          padding: 6px 10px;
+          border-radius: 999px;
+          border: 1px solid var(--border);
+          background: rgba(255,255,255,0.03);
+        }
+
+        /* Responsive */
+        @@media (max-width: 900px){
+          .card{ grid-column: span 6; }
+        }
+        @@media (max-width: 620px){
+          .card{ grid-column: span 12; }
+          .btn{ min-width: 100%; }
+          .topbar{ align-items:flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="topbar">
+            <div class="brand">
+                <div class="logo" aria-hidden="true"></div>
+                <div>
+                    <div style="font-size:1.05rem; line-height:1.1;">BoulderTrack</div>
+                    <div style="color: var(--muted); font-size:0.92rem;">Bouldertävling • Resultat • Leaderboards</div>
+                </div>
+            </div>
+
+            <nav class="nav" aria-label="Huvudmeny">
+                <a href="#features">Funktioner</a>
+                <a href="#how">Hur det funkar</a>
+                <a href="#demo">Demo</a>
+            </nav>
+        </header>
+
+        <main class="hero" id="demo">
+            <div class="kicker"><span class="dot" aria-hidden="true"></span> Demoapp för distribuerad systemutveckling</div>
+
+            <h1>Registrera toppar. Följ poäng. Se ställningen i realtid.</h1>
+            <p class="sub">
+                BoulderTrack är en enkel tävlingsapp för bouldering där klättrare registrerar sina resultat.
+                Byggd som ett kursrepo för att öva Git, Pull Requests och teamwork – innan vi skalar upp till API och fullstack.
+            </p>
+
+            <div class="ctaRow">
+                <!-- Dessa kan du senare koppla till riktiga routes -->
+                <a class="btn btnPrimary" href="#">Starta tävling</a>
+                <a class="btn" href="#">Visa leaderboard</a>
+                <a class="btn" href="~/index.html">Öppna statisk sida (wwwroot)</a>
+            </div>
+
+            <div class="hint">Tips: I föreläsning 1 kommer vi ändra text, länkar och JS via branch → PR → merge.</div>
+        </main>
+
+        <section class="grid" id="features" aria-label="Funktioner">
+            <article class="card">
+                <div class="icon" aria-hidden="true">⛓️</div>
+                <h3>Spårbar historik</h3>
+                <p>Allt sker via branches och Pull Requests. Varje ändring är lätt att följa och reviewa.</p>
+            </article>
+
+            <article class="card">
+                <div class="icon" aria-hidden="true">🧩</div>
+                <h3>Byggbar modulärt</h3>
+                <p>Startsida först. Sedan API, datalager och webbklient – stegvis, som i riktiga team.</p>
+            </article>
+
+            <article class="card">
+                <div class="icon" aria-hidden="true">🏁</div>
+                <h3>Tävling i fokus</h3>
+                <p>Klättrare registrerar toppar/zoner och du får en leaderboard som uppdateras kontinuerligt.</p>
+            </article>
+        </section>
+
+        <section class="hero" id="how" style="margin-top:14px; padding:22px;">
+            <h2 style="margin:0 0 10px; letter-spacing:-0.4px;">Hur det funkar (senare i kursen)</h2>
+            <p class="sub" style="margin-bottom:0;">
+                Vi bygger ett API för resultatregistrering, en server (MVC) för vyer, och en ren webbsida (HTML/JS)
+                som konsumerar API:t. I första föreläsningen fokuserar vi på arbetsflödet: Git → PR → review → merge → konfliktlösning.
+            </p>
+        </section>
+
+        <footer>
+            <span class="pill">BoulderTrack • IK113G</span>
+            <span>© @(DateTime.Now.Year) Demo för kursmoment</span>
+        </footer>
+    </div>
+</body>
+</html>
